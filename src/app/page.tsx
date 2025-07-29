@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <section className="max-w-4xl mx-auto py-12 px-4 text-center space-y-6">
+    <section className="mx-auto py-12 text-center space-y-6">
       <h1 className="text-4xl font-bold">Welcome to CookCraft 👩‍🍳</h1>
       <p className="text-gray-600 text-lg">
         Your personal AI-powered meal log and nutrition assistant.

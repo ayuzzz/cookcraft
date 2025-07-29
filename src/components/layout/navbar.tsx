@@ -12,7 +12,7 @@ export const Navbar = () =>
     ];
 
     return (
-        <div className="bg-[var(--primary-color)] container mx-auto flex gap-4 items-center justify-between px-4 py-3 shadow-lg">
+        <div className="bg-[var(--primary-color)] container mx-auto flex gap-4 items-center justify-between px-4 py-3 shadow-lg fixed top-0 left-0 z-50">
             <Image
                 src="/favicon.ico"
                 alt="CookCraft Logo"
