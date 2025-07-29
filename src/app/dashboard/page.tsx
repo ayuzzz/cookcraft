@@ -1,4 +1,4 @@
-import SummaryCards from "@/components/dashboard/summaryCards";
+import SummaryCards from "@/components/dashboard/SummaryCards";
 
 export default function Dashboard() {
   return (
