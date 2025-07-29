@@ -12,6 +12,10 @@ export const mealColumns = [
     header: "Meal",
     cell: info => info.getValue(),
   }),
+  columnHelper.accessor("type", {
+    header: "Meal Type",
+    cell: info => info.getValue(),
+  }),
   columnHelper.accessor("tags", {
     header: "Tags",
     cell: info => {

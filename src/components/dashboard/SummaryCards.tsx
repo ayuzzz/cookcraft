@@ -1,4 +1,4 @@
-import SummaryCard from "../common/SummaryCard";
+import SummaryCard from "../common/summaryCard";
 
 const SummaryCards = () => {
     return (
