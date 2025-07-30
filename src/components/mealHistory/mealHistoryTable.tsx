@@ -17,6 +17,11 @@ type Props = {
 export default function MealHistoryTable({ data }: Props) {
 
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [expandedRowId, setExpandedRowId] = useState<number | null>(null);
+
+  const toggleExpanded = (row: any) => {
+    setExpandedRowId(row.original.id === expandedRowId ? null : row.original.id);
+  };
 
   const table = useReactTable({
     data: data,
@@ -45,19 +50,49 @@ export default function MealHistoryTable({ data }: Props) {
                   )}
                 </th>
               ))}
-            </tr>
+              <th></th>
+            </tr>            
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => (
+          {data.length > 0 ? table.getRowModel().rows.map(row => (
+            <>
             <tr key={row.id} className="border-t hover:bg-gray-50">
               {row.getVisibleCells().map(cell => (
                 <td key={cell.id} className="px-4 py-2">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
+              <td>
+                <button id={row.original.name}
+                  className="text-blue-600 hover:underline cursor-pointer"
+                  onClick={() => toggleExpanded(row)}
+                >
+                  <i className={`fa-solid fa-chevron-${row.original.id === expandedRowId? "up": "down"}`}></i>
+                </button>
+              </td>
             </tr>
-          ))}
+            {row.original.id == expandedRowId && <tr className="border-t bg-gray-200">
+              <td colSpan={5}>
+                <div>
+                  <h1 className="px-4 py-2 text-xl font-bold underline">Ingredients</h1>
+                  <p className="px-4 py-2 ">
+                    {row.original.ingredients?.length ? row.original.ingredients.join(", ") : "No ingredients listed"}
+                  </p>
+                  <h1 className="px-4 py-2 text-xl font-bold underline">Instructions</h1>
+                  <p className="px-4 py-2">
+                    {row.original.instructions || "No instructions provided"}
+                  </p>
+                  <h1 className="px-4 py-2 text-xl font-bold underline">AI Summary</h1>
+                  <p className="px-4 py-2">
+                    {row.original.aiSummary || "No AI summary available"}
+                  </p>
+                </div>
+              </td>
+            </tr>}
+            </>
+          ))
+        : <tr><td colSpan={5} className="px-4 py-2 text-center">No data available</td></tr>}
         </tbody>
       </table>
     </div>

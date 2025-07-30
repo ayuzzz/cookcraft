@@ -11,9 +11,12 @@ export enum DateOption {
 }
 
 export type Meal = {
-  id: string;
+  id: number;
   date: string;
   name: string;
   type: MealType;
   tags: string[];
+  ingredients?: string[];
+  instructions?: string;
+  aiSummary?: string;
 };
