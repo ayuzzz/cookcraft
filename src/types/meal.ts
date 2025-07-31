@@ -15,8 +15,18 @@ export type Meal = {
   date: string;
   name: string;
   type: MealType;
-  tags: string[];
+  tags?: string[];
   ingredients?: string[];
   instructions?: string;
   aiSummary?: string;
 };
+
+export type MealFormData = {
+    date: Date;
+    type: MealType;
+    name: string;
+    ingredients: string;
+    instructions: string;
+    notes?: string;
+    audioNotes?: FileList;
+}

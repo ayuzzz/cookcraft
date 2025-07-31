@@ -67,7 +67,7 @@ export default function History() {
     const filterMealData = (searchText: string, dateRange: string, mealType: string): Meal[] => {
         return meals.filter(meal =>
             (meal.name.toLowerCase().includes(searchText.toLowerCase()) ||
-            meal.tags.some(tag => tag.toLowerCase().includes(searchText.toLowerCase()))) &&
+            meal.tags?.some(tag => tag.toLowerCase().includes(searchText.toLowerCase()))) &&
             (
                 dateRange === DATE_DEFAULT_OPTION ||
                 (new Date(meal.date) > getDateRange(dateRange))
