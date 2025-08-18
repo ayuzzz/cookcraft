@@ -1,48 +1,50 @@
-import CalorieLineChart from "@/components/dashboard/caloriesLineChart";
-import MacroRadarChart from "@/components/dashboard/macroRadarChart";
-import MealTypePieChart from "@/components/dashboard/mealTypePieChart";
+'use client';
+import CalorieLineChart from "@/components/dashboard/CaloriesLineChart";
+import MacroRadarChart from "@/components/dashboard/MacroRadarChart";
+import MealTypePieChart from "@/components/dashboard/MealTypePieChart";
 import SummaryCards from "@/components/dashboard/SummaryCards";
-import { MealType } from "@/types/meal";
+import { useDashboardStats } from "@/hooks/useDashboardStats";
+import { useEffect, useState } from "react";
+import { Loader } from "@/components/common/loader";
 
 export default function Dashboard() {
-  const caloriesLineChartData = [
-    { date: "2023-10-01", calories: 2000 },
-    { date: "2023-10-02", calories: 1800 },
-    { date: "2023-10-03", calories: 2200 },
-    { date: "2023-10-04", calories: 2100 },
-    { date: "2023-10-05", calories: 1900 },
-    { date: "2023-10-06", calories: 2300 },
-    { date: "2023-10-07", calories: 2500 }
-  ];
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // Simulate data fetching
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Adjust the delay as needed
 
-  const macrosData = {
-    protein: 350,
-    carbs: 1100,
-    fats: 600
-  };
+    return () => clearTimeout(timer);
+  }, []);
 
-  const mealTypeData = [
-    { mealType: MealType.Breakfast, value: 10 },
-    { mealType: MealType.Lunch, value: 15 },
-    { mealType: MealType.Dinner, value: 20 },
-    { mealType: MealType.Snack, value: 5 }
-  ];
+  const { mealsLogged, avgCalories, tagsUsed, calorieTrend, macroBalance, mealtypeDistribution } = useDashboardStats([]); // Replace with actual meals data when available
 
   return (
-    <main>
-      <section className="container mx-auto py-8">
-        <SummaryCards />
-      </section>
+    loading ? 
+      <Loader alignment='center' /> : 
+      (
+        <>
+          <main>
+            <section className="container mx-auto py-8">
+              <SummaryCards
+                mealsLogged={mealsLogged}
+                avgCalories={avgCalories}
+                tagsUsed={tagsUsed}
+              />
+            </section>
 
-      <section className="container mx-auto py-8">
-        <CalorieLineChart data={caloriesLineChartData} />
-        <MacroRadarChart data={macrosData} />
-        <MealTypePieChart data={mealTypeData} />
-      </section>
+            <section className="container mx-auto py-8">
+              <CalorieLineChart data={calorieTrend} />
+              <MacroRadarChart data={macroBalance} />
+              <MealTypePieChart data={mealtypeDistribution} />
+            </section>
 
-      <section className="container mx-auto py-8">
-        Action Section
-      </section>
-    </main>
+            <section className="container mx-auto py-8">
+              Action Section
+            </section>
+          </main>
+        </>
+      )
   );
 }
