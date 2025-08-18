@@ -15,6 +15,8 @@ export type Meal = {
   date: string;
   name: string;
   type: MealType;
+  macros?: Macros;
+  calories: number;
   tags?: string[];
   ingredients?: string[];
   instructions?: string;
@@ -29,4 +31,14 @@ export type MealFormData = {
     instructions: string;
     notes?: string;
     audioNotes?: FileList;
+    macros?: Macros;
+    calories: number;
+    tags?: string[];
+    aiSummary?: string;
 }
+
+export type Macros = {
+  protein: number;
+  carbs: number;
+  fats: number;
+};

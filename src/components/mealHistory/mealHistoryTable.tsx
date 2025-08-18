@@ -9,12 +9,14 @@ import {
 } from "@tanstack/react-table";
 import { Meal } from "../../types/meal";
 import { mealColumns } from "./mealColumns";
+import { Loader } from "../common/loader";
 
 type Props = {
   data: Meal[];
+  loading: boolean;
 };
 
-export default function MealHistoryTable({ data }: Props) {
+export default function MealHistoryTable({ data, loading }: Props) {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [expandedRowId, setExpandedRowId] = useState<number | null>(null);
@@ -33,6 +35,7 @@ export default function MealHistoryTable({ data }: Props) {
   });
 
   return (
+    loading ? <Loader alignment="center"/> :
     <div className="overflow-x-auto border shadow">
       <table className="min-w-full text-sm">
         <thead className="bg-[var(--primary-color)]">
@@ -40,7 +43,7 @@ export default function MealHistoryTable({ data }: Props) {
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => (
                 <th
-                  key={header.id}
+                  key={`${headerGroup.id}-${header.id}`}
                   onClick={header.column.getToggleSortingHandler?.()}
                   className="px-4 py-2 text-left cursor-pointer hover:underline"
                 >
@@ -50,8 +53,8 @@ export default function MealHistoryTable({ data }: Props) {
                   )}
                 </th>
               ))}
-              <th></th>
-            </tr>            
+              <th key={`actions-${headerGroup.id}`}></th>
+            </tr>
           ))}
         </thead>
         <tbody>
@@ -59,7 +62,7 @@ export default function MealHistoryTable({ data }: Props) {
             <>
             <tr key={row.id} className="border-t hover:bg-gray-50">
               {row.getVisibleCells().map(cell => (
-                <td key={cell.id} className="px-4 py-2">
+                <td key={`${row.id}-${cell.id}`} className="px-4 py-2">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
@@ -72,8 +75,9 @@ export default function MealHistoryTable({ data }: Props) {
                 </button>
               </td>
             </tr>
-            {row.original.id == expandedRowId && <tr className="border-t bg-gray-200">
-              <td colSpan={5}>
+            {row.original.id == expandedRowId && 
+            <tr className="border-t bg-gray-200">
+              <td key={`ingredients-${row.id}`} colSpan={5}>
                 <div>
                   <h1 className="px-4 py-2 text-xl font-bold underline">Ingredients</h1>
                   <p className="px-4 py-2 ">
@@ -86,6 +90,17 @@ export default function MealHistoryTable({ data }: Props) {
                   <h1 className="px-4 py-2 text-xl font-bold underline">AI Summary</h1>
                   <p className="px-4 py-2">
                     {row.original.aiSummary || "No AI summary available"}
+                  </p>
+                  <p className="px-4 py-2">
+                    <strong>Calories:</strong> {row.original.calories || 0}
+                  </p>
+                  <h1 className="px-4 py-2 text-xl font-bold underline">Macros</h1>
+                  <p className="px-4 py-2">
+                    <ul>
+                      <li><strong>Protein:</strong> {row.original.macros?.protein || 0} g</li>
+                      <li><strong>Carbs:</strong> {row.original.macros?.carbs || 0} g</li>
+                      <li><strong>Fats:</strong> {row.original.macros?.fats || 0} g</li>
+                    </ul>
                   </p>
                 </div>
               </td>
