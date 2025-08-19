@@ -1,32 +1,32 @@
 'use client';
-import { AiSummaryResponse } from "@/app/api/apiSchema/aiSummaryResponse";
+import { Meal } from "@/types/meal";
 import { useState } from "react";
 
-export const useAI = () => {
+export const useAIAssistant = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [summary, setSummary] = useState<AiSummaryResponse | null>(null);
-    const getSummary = async (ingredients: string[], instructions: string) => {
+    const [aiResponse, setAIResponse] = useState<string | null>(null);
+    const getAIResponse = async (query: string, meals: Meal[]) => {
         setLoading(true);
         setError(null);
 
         try{
-            const response = await fetch("/api/ai/summary", {
+            const response = await fetch("/api/ai/query", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ ingredients, instructions })
+                body: JSON.stringify({ query, meals })
             });
             const data = await response.json();
-            setSummary(data as AiSummaryResponse);
+            setAIResponse(data.response as string);
             setLoading(false);
             setError(null);
         } catch (err) {
-            console.error("Error fetching AI summary:", err);
+            console.error("Error fetching AI response:", err);
             setLoading(false);
-            setSummary(null);
+            setAIResponse(null);
             if (err instanceof Error) {
                 setError(`Error: ${err.message}`);
             } else {
@@ -35,8 +35,8 @@ export const useAI = () => {
         }
     }
     return {
-        getSummary,
-        summary,
+        getAIResponse,
+        aiResponse,
         loading,
         error,
     };

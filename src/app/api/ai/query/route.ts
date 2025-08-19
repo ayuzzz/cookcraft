@@ -1,24 +1,27 @@
+import { Meal } from "@/types/meal";
 import { NextResponse } from "next/server";
-import { AiSummaryResponse } from "../../apiSchema/aiSummaryResponse";
+import { AiAssistantResponse } from "../../apiSchema/aiAssistantResponse";
 
 export async function POST(request: Request) {
-  const { ingredients, instructions } = await request.json();
+  const { query, meals } = await request.json();
 
-  const prompt = generatePromptForAI(ingredients, instructions);
-  const summary = await getSummaryFromAI(prompt);
-
-  return NextResponse.json(summary);
+  const prompt = generatePromptForAIQuery(query, meals);
+  console.log("Generated Prompt:", prompt);
+  const aiResponse = await getAnswerFromAI(prompt);
+  console.log("AI Response:", aiResponse);
+  return NextResponse.json(aiResponse);
 }
 
-function generatePromptForAI(ingredients: string[], instructions: string): string {
-  return `You are a nutrition expert. Analyze the following meal:
-Ingredients: ${ingredients.join(", ")}
-Instructions from the user: ${instructions}
-Return this as a JSON object: {"calories": number, "macros": { "protein": number, "carbs": number, "fats": number }, "tags": [string], "suggestion": string}
-Make sure to return only this JSON object and nothing else in the content output.`;
+function generatePromptForAIQuery(query: string, meals: Meal[]): string {
+  return `You are a nutrition expert analyzing a user's meals. Here are the recent meals and the user's query:
+            Query: ${query}
+            Meals: ${JSON.stringify(meals)}
+            Give a helpful, detailed answer.
+            Return this as a JSON object: {"response": string}
+            Make sure to return only this JSON object and nothing else in the content output.`;
 }
 
-async function getSummaryFromAI(prompt: string): Promise<AiSummaryResponse> {
+async function getAnswerFromAI(prompt: string): Promise<AiAssistantResponse> {
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -50,7 +53,7 @@ async function getSummaryFromAI(prompt: string): Promise<AiSummaryResponse> {
     }
     const jsonResponse = JSON.parse(match[0]);
 
-    return jsonResponse as AiSummaryResponse;
+    return jsonResponse as AiAssistantResponse;
   } catch (error) {
     console.error("Error parsing AI response:", error);
     throw new Error("Failed to parse AI response");
