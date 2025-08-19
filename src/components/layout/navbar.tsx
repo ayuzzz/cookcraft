@@ -14,10 +14,11 @@ export const Navbar = () =>
     return (
         <div className="bg-[var(--primary-color)] flex gap-4 items-center justify-between px-4 py-3 shadow-lg">
             <Image
-                src="/favicon.ico"
+                src="/images/icon.ico"
                 alt="CookCraft Logo"
-                width={40}
-                height={40}
+                width={60}
+                height={60}
+                className="cursor-pointer"
             />
             <Link href="/" className="text-xl font-bold">
                 CookCraft

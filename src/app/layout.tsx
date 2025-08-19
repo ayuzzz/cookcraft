@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "CookCraft",
   description: "an AI-powered personal meal tracker",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
