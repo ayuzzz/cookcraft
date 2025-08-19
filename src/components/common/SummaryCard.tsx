@@ -12,12 +12,12 @@ export default function SummaryCard({ title, value, icon, className = "" }: Summ
     <div
       className={`bg-white shadow-sm rounded-lg p-5 border border-gray-200 flex items-center justify-around ${className} flex-wrap`}
     >
-        {icon ? <div className="justify-center items-center">{icon} </div> : <div className="justify-center items-center">
+        {icon ? <div className="justify-center items-center">{icon}</div> : <div className="justify-center items-center">
             <Image
                 src="/favicon.ico"
                 alt="CookCraft Logo"
-                width={40}
-                height={40}
+                width={60}
+                height={60}
             /></div>}
       <div className="flex-grow-1 flex flex-col justify-center items-center">
         <h3 className="text-xl text-[var(--primary-text-color)] flex-wrap">{title}</h3>
