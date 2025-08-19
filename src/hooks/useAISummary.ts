@@ -2,7 +2,7 @@
 import { AiSummaryResponse } from "@/app/api/apiSchema/aiSummaryResponse";
 import { useState } from "react";
 
-export const useAI = () => {
+export const useAISummary = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);

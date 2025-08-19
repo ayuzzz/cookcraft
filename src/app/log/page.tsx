@@ -1,7 +1,7 @@
 'use client'
 import AiSummary from "@/components/log/AiSummary";
 import LogMealForm from "@/components/log/LogMealForm";
-import { useAI } from "@/hooks/useAI";
+import { useAISummary } from "@/hooks/useAISummary";
 import { MealFormData } from "@/types/meal";
 import { useEffect, useRef } from "react";
 
@@ -13,7 +13,7 @@ export default function Log(){
                     tags: [],
                     aiSummary: "Awaiting AI summary..."
                 }
-    const { getSummary, loading, error, summary } = useAI();
+    const { getSummary, loading, error, summary } = useAISummary();
 
     const generateAISummary = async (ingredients: string[], instructions: string) => {
         await getSummary(ingredients, instructions);
