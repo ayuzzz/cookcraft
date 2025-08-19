@@ -8,7 +8,7 @@ export const Navbar = () =>
         {href: "/log", label: "Log Meal"},
         {href: "/dashboard", label: "Dashboard"},
         {href: "/history", label: "History"},
-        {href: "/ask-ai", label: "Ask AI"},
+        {href: "/assistant", label: "Ask AI"},
     ];
 
     return (
