@@ -5,7 +5,9 @@ import { Session } from "next-auth";
 export default function LoginPage() {
     const {data, status} = useSession() as { data: Session | null, status: "authenticated" | "unauthenticated" | "loading" };
     return (
-        <div className="flex flex-col items-center justify-start min-h-screen container mx-auto py-8">
+        <div
+            className="container flex flex-col items-center justify-start mx-auto py-8"
+        >
             {status === "unauthenticated" ? 
             (<>
                 <h1 className="text-2xl font-bold mb-4">Login to CookCraft</h1>

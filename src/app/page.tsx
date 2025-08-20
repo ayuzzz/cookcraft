@@ -39,11 +39,14 @@ export default function Home() {
           { icon: "📊", title: "Visual Insights", desc: "Track your nutritional trends over time with clear charts." },
           { icon: "📥", title: "PDF Reports", desc: "Export summaries for weekly reviews or diet planning." },
         ].map(({ icon, title, desc }) => (
-          <div key={title} className="p-6 bg-white rounded shadow text-center">
-            <div className="text-3xl mb-2">{icon}</div>
-            <h3 className="font-semibold text-lg mb-1">{title}</h3>
-            <p className="text-sm text-gray-500">{desc}</p>
-          </div>
+            <div
+              key={title}
+              className={`p-6 text-center ${title !== "PDF Reports" ? "border-r border-gray-200" : ""}`}
+            >
+              <div className="text-3xl mb-2">{icon}</div>
+              <h3 className="font-semibold text-lg mb-1">{title}</h3>
+              <p className="text-sm text-gray-500">{desc}</p>
+            </div>
         ))}
       </section>
 
