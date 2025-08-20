@@ -1,14 +1,19 @@
+'use client';
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import React from "react";
 
 export const Navbar = () =>
 {
+    const {data, status} = useSession() as { data: Session | null, status: "authenticated" | "unauthenticated" | "loading" };;
     const navLinks = [
         {href: "/", label: "Home"},
         {href: "/log", label: "Log Meal"},
         {href: "/dashboard", label: "Dashboard"},
         {href: "/history", label: "History"},
-        {href: "/assistant", label: "Ask AI"},
+        {href: "/assistant", label: "Ask AI"}
     ];
 
     return (
@@ -26,10 +31,24 @@ export const Navbar = () =>
 
             <nav className="flex-grow flex gap-6 justify-end px-4 py-3">
                 {navLinks.map((link) => 
-                    <Link href={link.href} key={link.label} className="text-[var(--primary-text-color)] hover:text-white text-lg font-semibold">
-                        {link.label}
-                    </Link>
+                        <Link key={link.label} href={link.href} className="text-[var(--primary-text-color)] hover:text-white text-lg font-semibold">
+                            {link.label}
+                        </Link>
                 )}
+                {status === "unauthenticated" ? (
+                            <Link key="login" href="/login" className="text-[var(--primary-text-color)] hover:text-white text-lg font-semibold">
+                                Login
+                            </Link>
+                        ) : (
+                            <React.Fragment key={data?.user?.id}>
+                                <Link key="logout" href="/login" className="text-[var(--primary-text-color)] hover:text-white text-lg font-semibold">
+                                    Logout
+                                </Link>
+                                {data?.user?.image ? (
+                                    <img src={data.user.image} alt="User Avatar" className="w-9 h-9 rounded-full ml-2" />
+                                ) : null}
+                            </React.Fragment>
+                        )}
             </nav>
         </div>
     );
