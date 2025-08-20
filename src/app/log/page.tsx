@@ -4,7 +4,7 @@ import LogMealForm from "@/components/log/LogMealForm";
 import { useAISummary } from "@/hooks/useAISummary";
 import { MealFormData } from "@/types/meal";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 export default function Log(){

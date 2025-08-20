@@ -1,11 +1,24 @@
+'use client';
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+
+  const {data, status} = useSession() as { data: { user: { name: string } }, status: "authenticated" | "unauthenticated" | "loading" };
   return (
     <>
       <section className="mx-auto py-12 text-center space-y-6">
-        <h1 className="text-4xl font-bold">Welcome to CookCraft <Image src="/images/icon.ico" alt="CookCraft Logo" className="inline-block" width={50} height={50} /></h1>
+        <h1 className="text-4xl font-bold">
+          {status !== "unauthenticated" ? (
+            <>
+              Hi <span className="text-blue-600">{data?.user?.name}</span>, Welcome to CookCraft
+            </>
+          ) : (
+            "Hi, Welcome to CookCraft"
+          )}
+          <Image src="/images/icon.ico" alt="CookCraft Logo" className="inline-block" width={50} height={50} />
+        </h1>
         <p className="text-gray-600 text-lg">
           Your personal AI-powered meal log and nutrition assistant.
         </p>
