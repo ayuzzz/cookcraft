@@ -1,4 +1,4 @@
-import SummaryCard from "../common/summaryCard";
+import SummaryCard from "../common/SummaryCard";
 
 type SummaryCardProps = {
     mealsLogged: number;

@@ -2,11 +2,23 @@
 import AssistantResponse from "@/components/assistant/assistantResponse";
 import { meals } from "@/data/mealData";
 import { useAIAssistant } from "@/hooks/useAIAssistant";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Assistant(){
     const [query, setQuery] = useState("");
     const [response, setResponse] = useState("Hi, I am your assistant...");
+
+    const router = useRouter();
+    const {status} = useSession();
+    
+    useEffect(() => {
+    if (status === "unauthenticated") {
+        router.push("/login");
+    }
+    }, [status, router]);
+
     const { getAIResponse, aiResponse, loading, error } = useAIAssistant();
 
     const handleAssistantQuery = async () => {

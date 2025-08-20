@@ -3,6 +3,8 @@ import MealHistoryActions from "@/components/mealHistory/mealHistoryActions";
 import MealHistoryTable from "@/components/mealHistory/mealHistoryTable";
 import { meals } from "@/data/mealData";
 import { DateOption, Meal, MealType } from "@/types/meal";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function History() {
@@ -13,6 +15,15 @@ export default function History() {
     const [mealType, setMealType] = useState(MEALTYPE_DEFAULT_OPTION);
     const [loading, setLoading] = useState(false);
 
+    const router = useRouter();
+    const {status} = useSession();
+    
+    useEffect(() => {
+    if (status === "unauthenticated") {
+        router.push("/login");
+    }
+    }, [status, router]);
+      
     useEffect(() => {
         // Simulate loading state
         setLoading(true);

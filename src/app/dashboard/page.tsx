@@ -6,14 +6,25 @@ import SummaryCards from "@/components/dashboard/SummaryCards";
 import { useDashboardStats } from "@/hooks/useDashboardStats";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/common/loader";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
+  const router = useRouter();
+  const {status} = useSession();
+  
+  useEffect(() => {
+  if (status === "unauthenticated") {
+      router.push("/login");
+  }
+  }, [status, router]);
+
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     // Simulate data fetching
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000); // Adjust the delay as needed
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);

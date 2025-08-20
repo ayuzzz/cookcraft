@@ -3,9 +3,19 @@ import AiSummary from "@/components/log/AiSummary";
 import LogMealForm from "@/components/log/LogMealForm";
 import { useAISummary } from "@/hooks/useAISummary";
 import { MealFormData } from "@/types/meal";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 
 export default function Log(){
+    const router = useRouter();
+    const {status} = useSession();
+    
+    useEffect(() => {
+    if (status === "unauthenticated") {
+        router.push("/login");
+    }
+    }, [status, router]);
 
     const initialSummaryData = {
                     calories: 0,
