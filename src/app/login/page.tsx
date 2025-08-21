@@ -1,9 +1,17 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Session } from "next-auth";
+import { useAiStore } from "@/store/aiStore";
 
 export default function LoginPage() {
     const {data, status} = useSession() as { data: Session | null, status: "authenticated" | "unauthenticated" | "loading" };
+
+    const handleLogout = async () => {
+        // Clear all stores before logging out
+        useAiStore.getState().clearStore();
+        await signOut();
+    }
+
     return (
         <div
             className="container flex flex-col items-center justify-start mx-auto py-8"
@@ -24,7 +32,7 @@ export default function LoginPage() {
                     {data ? `Welcome, ${data.user?.name}` : "Please sign in to continue."}
                 </p>
                 <button
-                    onClick={() => signOut()}
+                    onClick={() => handleLogout()}
                     className="bg-red-600 text-white px-4 py-2 rounded mt-2 cursor-pointer"
                 >
                     <span className="text-xl">Sign out</span>

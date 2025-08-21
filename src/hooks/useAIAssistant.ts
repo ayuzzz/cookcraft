@@ -1,4 +1,5 @@
 'use client';
+import { useAiStore } from "@/store/aiStore";
 import { Meal } from "@/types/meal";
 import { useState } from "react";
 
@@ -6,7 +7,7 @@ export const useAIAssistant = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [aiResponse, setAIResponse] = useState<string | null>(null);
+    const { setAiResponse } = useAiStore();
     const getAIResponse = async (query: string, meals: Meal[]) => {
         setLoading(true);
         setError(null);
@@ -20,13 +21,13 @@ export const useAIAssistant = () => {
                 body: JSON.stringify({ query, meals })
             });
             const data = await response.json();
-            setAIResponse(data.response as string);
+            setAiResponse(data.response as string);
             setLoading(false);
             setError(null);
         } catch (err) {
             console.error("Error fetching AI response:", err);
             setLoading(false);
-            setAIResponse(null);
+            setAiResponse(null);
             if (err instanceof Error) {
                 setError(`Error: ${err.message}`);
             } else {
@@ -36,7 +37,6 @@ export const useAIAssistant = () => {
     }
     return {
         getAIResponse,
-        aiResponse,
         loading,
         error,
     };
