@@ -4,7 +4,7 @@ import MealHistoryTable from "@/components/mealHistory/mealHistoryTable";
 import { meals } from "@/data/mealData";
 import { DateOption, Meal, MealType } from "@/types/meal";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function History() {

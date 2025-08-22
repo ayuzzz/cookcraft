@@ -1,11 +1,24 @@
+'use client';
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+
+  const {data, status} = useSession() as { data: { user: { name: string } }, status: "authenticated" | "unauthenticated" | "loading" };
   return (
     <>
       <section className="mx-auto py-12 text-center space-y-6">
-        <h1 className="text-4xl font-bold">Welcome to CookCraft <Image src="/images/icon.ico" alt="CookCraft Logo" className="inline-block" width={50} height={50} /></h1>
+        <h1 className="text-4xl font-bold">
+          {status !== "unauthenticated" ? (
+            <>
+              Hi <span className="text-blue-600">{data?.user?.name}</span>, Welcome to CookCraft
+            </>
+          ) : (
+            "Hi, Welcome to CookCraft"
+          )}
+          <Image src="/images/icon.ico" alt="CookCraft Logo" className="inline-block" width={50} height={50} />
+        </h1>
         <p className="text-gray-600 text-lg">
           Your personal AI-powered meal log and nutrition assistant.
         </p>
@@ -26,11 +39,14 @@ export default function Home() {
           { icon: "📊", title: "Visual Insights", desc: "Track your nutritional trends over time with clear charts." },
           { icon: "📥", title: "PDF Reports", desc: "Export summaries for weekly reviews or diet planning." },
         ].map(({ icon, title, desc }) => (
-          <div key={title} className="p-6 bg-white rounded shadow text-center">
-            <div className="text-3xl mb-2">{icon}</div>
-            <h3 className="font-semibold text-lg mb-1">{title}</h3>
-            <p className="text-sm text-gray-500">{desc}</p>
-          </div>
+            <div
+              key={title}
+              className={`p-6 text-center ${title !== "PDF Reports" ? "border-r border-gray-200" : ""}`}
+            >
+              <div className="text-3xl mb-2">{icon}</div>
+              <h3 className="font-semibold text-lg mb-1">{title}</h3>
+              <p className="text-sm text-gray-500">{desc}</p>
+            </div>
         ))}
       </section>
 

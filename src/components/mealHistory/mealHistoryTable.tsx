@@ -59,7 +59,7 @@ export default function MealHistoryTable({ data, loading }: Props) {
         </thead>
         <tbody>
           {data.length > 0 ? table.getRowModel().rows.map(row => (
-            <>
+            <React.Fragment key={row.id}>
             <tr key={row.id} className="border-t hover:bg-gray-50">
               {row.getVisibleCells().map(cell => (
                 <td key={`${row.id}-${cell.id}`} className="px-4 py-2">
@@ -105,7 +105,7 @@ export default function MealHistoryTable({ data, loading }: Props) {
                 </div>
               </td>
             </tr>}
-            </>
+            </ React.Fragment>
           ))
         : <tr><td colSpan={5} className="px-4 py-2 text-center">No data available</td></tr>}
         </tbody>
