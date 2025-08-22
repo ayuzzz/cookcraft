@@ -1,9 +1,10 @@
 'use client';
 import { AiSummaryResponse } from "@/app/api/apiSchema/aiSummaryResponse";
+import { useMealFormStore } from "@/store/mealFormStore";
 import { useState } from "react";
 
 export const useAISummary = () => {
-
+    const {setField} = useMealFormStore();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [summary, setSummary] = useState<AiSummaryResponse | null>(null);
@@ -21,6 +22,10 @@ export const useAISummary = () => {
             });
             const data = await response.json();
             setSummary(data as AiSummaryResponse);
+            setField("aiSummary", (data as AiSummaryResponse).suggestion);
+            setField("macros", (data as AiSummaryResponse).macros);
+            setField("calories", (data as AiSummaryResponse).calories);
+            setField("tags", (data as AiSummaryResponse).tags);
             setLoading(false);
             setError(null);
         } catch (err) {

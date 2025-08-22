@@ -36,15 +36,20 @@ export const getInitialMealFormState = (): MealFormState => ({
 
 type MealFormStore = MealFormState & {
     setField: <K extends keyof MealFormState>(key: K, value: MealFormState[K]) => void;
+    getFields: () => MealFormState;
     clearStore: () => void;
 };
 
 export const useMealFormStore = create<MealFormStore>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             ...getInitialMealFormState(),
             setField: (key, value) => set((state) => ({ ...state, [key]: value })),
-            clearStore: () => set(() => ({ ...getInitialMealFormState() })),
+            getFields: () => {
+                const { setField, getFields, clearStore, ...fields } = get();
+                return fields as MealFormState;
+            },
+            clearStore: () => set(() => ({ ...getInitialMealFormState() }))
         }),
         {
             name: "meal-form-store",
