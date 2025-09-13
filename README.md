@@ -34,7 +34,8 @@ CookCraft is an AI-powered personal meal tracker and assistant built with Next.j
 
 ### Ask AI Assistant
 
-![Uploading Ask AI Assistant.png…]()
+<img width="1268" height="593" alt="Ask AI Assistant" src="https://github.com/user-attachments/assets/d14db22e-4dee-4fe5-a247-0466337db332" />
+
 
 
 ## Features
