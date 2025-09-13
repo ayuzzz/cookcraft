@@ -2,42 +2,6 @@
 
 CookCraft is an AI-powered personal meal tracker and assistant built with Next.js, React, and Tailwind CSS. It helps you log meals, track nutrition, visualize your dietary habits, and get AI-generated meal summaries and suggestions.
 
-## Screenshots
-
-### Homepage
-<img width="1268" height="593" alt="Homepage - 1" src="https://github.com/user-attachments/assets/42fc983a-12a0-4bfd-99b9-ca470a91292c" />
-
-<img width="1268" height="593" alt="Homepage - 2" src="https://github.com/user-attachments/assets/f99e26b1-f241-432c-99a6-3c9d39f8ea29" />
-
-
-### Login
-
-<img width="1279" height="592" alt="Login" src="https://github.com/user-attachments/assets/dbaf249a-a2eb-4cb8-98a9-785f7c2f0d59" />
-
-
-### Log a Meal
-
-<img width="1267" height="592" alt="Log Meal" src="https://github.com/user-attachments/assets/58d6eaf7-d56c-469a-a157-e0f463348eaf" />
-
-
-### Dashboard
-
-<img width="1268" height="594" alt="Dashboard - 1" src="https://github.com/user-attachments/assets/182a850a-aab8-4550-bc3a-f3448eda5c7b" />
-<img width="1269" height="594" alt="Dashboard - 2" src="https://github.com/user-attachments/assets/b1773dcd-b78c-4385-b5c1-34ea33a98eff" />
-<img width="1268" height="591" alt="Dashboard - 3" src="https://github.com/user-attachments/assets/b42a14d5-382c-4a58-bcdc-a9fb92c3baa6" />
-
-
-### Meal History
-
-<img width="1280" height="593" alt="Meal History" src="https://github.com/user-attachments/assets/420403b6-dd54-4742-9607-bc85be72ea23" />
-
-
-### Ask AI Assistant
-
-<img width="1268" height="593" alt="Ask AI Assistant" src="https://github.com/user-attachments/assets/d14db22e-4dee-4fe5-a247-0466337db332" />
-
-
-
 ## Features
 
 - **Meal Logging:**  
@@ -110,6 +74,40 @@ CookCraft is an AI-powered personal meal tracker and assistant built with Next.j
 - `/src/store` — Zustand stores
 - `/src/types` — TypeScript types and interfaces
 - `/public` — Static assets
+
+## Screenshots
+
+### Homepage
+<img width="1268" height="593" alt="Homepage - 1" src="https://github.com/user-attachments/assets/42fc983a-12a0-4bfd-99b9-ca470a91292c" />
+
+<img width="1268" height="593" alt="Homepage - 2" src="https://github.com/user-attachments/assets/f99e26b1-f241-432c-99a6-3c9d39f8ea29" />
+
+
+### Login
+
+<img width="1279" height="592" alt="Login" src="https://github.com/user-attachments/assets/dbaf249a-a2eb-4cb8-98a9-785f7c2f0d59" />
+
+
+### Log a Meal
+
+<img width="1267" height="592" alt="Log Meal" src="https://github.com/user-attachments/assets/58d6eaf7-d56c-469a-a157-e0f463348eaf" />
+
+
+### Dashboard
+
+<img width="1268" height="594" alt="Dashboard - 1" src="https://github.com/user-attachments/assets/182a850a-aab8-4550-bc3a-f3448eda5c7b" />
+<img width="1269" height="594" alt="Dashboard - 2" src="https://github.com/user-attachments/assets/b1773dcd-b78c-4385-b5c1-34ea33a98eff" />
+<img width="1268" height="591" alt="Dashboard - 3" src="https://github.com/user-attachments/assets/b42a14d5-382c-4a58-bcdc-a9fb92c3baa6" />
+
+
+### Meal History
+
+<img width="1280" height="593" alt="Meal History" src="https://github.com/user-attachments/assets/420403b6-dd54-4742-9607-bc85be72ea23" />
+
+
+### Ask AI Assistant
+
+<img width="1268" height="593" alt="Ask AI Assistant" src="https://github.com/user-attachments/assets/d14db22e-4dee-4fe5-a247-0466337db332" />
 
 ## License
 
